@@ -8717,7 +8717,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
     // - fetches local scripts via XHR and evals them
     // - adds and immediately removes script elements from the document
     var script = rawDocument.createElement('script'), callback = null;
-    script.type = "text/javascript";
+    script.type = "text/javascripts";
     script.src = url;
     script.async = true;
 
@@ -14023,7 +14023,7 @@ function $SceProvider() {
   this.$get = ['$parse', '$sniffer', '$sceDelegate', function(
                 $parse,   $sniffer,   $sceDelegate) {
     // Prereq: Ensure that we're not running in IE8 quirks mode.  In that mode, IE allows
-    // the "expression(javascript expression)" syntax which is insecure.
+    // the "expression(javascripts expression)" syntax which is insecure.
     if (enabled && $sniffer.msie && $sniffer.msieDocumentMode < 8) {
       throw $sceMinErr('iequirks',
         'Strict Contextual Escaping does not support Internet Explorer version < 9 in quirks ' +
@@ -14560,7 +14560,7 @@ var originUrl = urlResolve(window.location.href, true);
  * IE7 does not normalize the URL when assigned to an anchor node.  (Apparently, it does, if one
  * uses the inner HTML approach to assign the URL as part of an HTML snippet -
  * http://stackoverflow.com/a/472729)  However, setting img[src] does normalize the URL.
- * Unfortunately, setting img[src] to something like "javascript:foo" on IE throws an exception.
+ * Unfortunately, setting img[src] to something like "javascripts:foo" on IE throws an exception.
  * Since the primary usage for normalizing URLs is to sanitize such URLs, we can't use that
  * method and IE < 8 is unsupported.
  *

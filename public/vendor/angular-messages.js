@@ -41,7 +41,7 @@
  * match the attribute value present on each ngMessage directive). In other words, if your errors
  * object contains the following data:
  *
- * ```javascript
+ * ```javascripts
  * <!-- keep in mind that ngModel automatically sets these error flags -->
  * myField.$error = { minlength : true, required : false };
  * ```

@@ -306,7 +306,7 @@
  * ```
  *
  * JavaScript-defined animations are created with a CSS-like class selector and a collection of events which are set to run
- * a javascript callback function. When an animation is triggered, $animate will look for a matching animation which fits
+ * a javascripts callback function. When an animation is triggered, $animate will look for a matching animation which fits
  * the element's CSS class attribute value and then run the matching animation event function (if found).
  * In other words, if the CSS classes present on the animated element match any of the JavaScript animations then the callback function will
  * be executed. It should be also noted that only simple, single class selectors are allowed (compound class selectors are not supported).

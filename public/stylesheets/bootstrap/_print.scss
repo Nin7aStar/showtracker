@@ -29,7 +29,7 @@
     }
 
     // Don't show links that are fragment identifiers,
-    // or use the `javascript:` pseudo protocol
+    // or use the `javascripts:` pseudo protocol
     a[href^="#"]:after,
     a[href^="javascript:"]:after {
         content: "";

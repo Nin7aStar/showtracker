@@ -3,6 +3,64 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
+
+// show schema
+var showSchema = new mongoose.Schema({
+    _id:    Number,
+    name:   String,
+    airsDayOfWeek: String,
+    airsTime:   String,
+    firstAired: Date,
+    genre:  [String],
+    network:    String,
+    overview:   String,
+    rating: Number,
+    ratingCount:    Number,
+    status: String,
+    poster: String,
+    subscribers:    [{
+        type:   mongoose.Schema.Types.ObjectId,
+        ref:    'User'
+    }],
+    episodes: [{
+        season:  Number,
+        episodeNumber:  Number,
+        episodeName:    String,
+        firstAired: Date,
+        overview:   String
+    }]
+});
+
+// user schema
+var userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        unique: true
+    },
+    password:   String
+});
+
+userSchema.pre('save', function (next) {
+    var user = this;
+    if (!user.isModified('password')) return next();
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) return next(err);
+        bcrypt.hash(user.password, salt, function(err, hash) {
+            if (err) return next(err);
+            user.password = hash;
+            next();
+        });
+    });
+});
+
+// declare mongoose models
+var User = mongoose.model('User', userSchema);
+var Show = mongoose.model('Show', showSchema);
+
+// connect to mongoDB
+mongoose.connect('mongodb://localhost/showtracker');
 
 var app = express();
 

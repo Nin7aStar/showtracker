@@ -8,9 +8,9 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
                 templateUrl: 'views/home.html',
                 controller: 'MainCtrl'
             })
-            .when('/shows/:id', {                   // route
-                temmplateUrl: 'views/detail.html',   // view file
-                controller: 'DetailCtrl'            // angularJS controller
+            .when('/shows/:id', {                       // route
+                temmplateUrl: 'views/detail.html',      // view file
+                controller: 'DetailCtrl'                // angularJS controller
             })
             .when('/login', {
                 templateUrl: 'views/login.html',

@@ -1882,7 +1882,7 @@ function setupModuleLoader(window) {
            * @name angular.Module#filter
            * @module ng
            * @param {string} name Filter name.
-           * @param {Function} filterFactory Factory function for creating new instance of filter.
+           * @param {Function} filterFactory Factory function for creating new instance of filters.
            * @description
            * See {@link ng.$filterProvider#register $filterProvider.register()}.
            */
@@ -4158,9 +4158,9 @@ function $AnchorScrollProvider() {
     var document = $window.document;
 
     // helper function to get first anchor from a NodeList
-    // can't use filter.filter, as it accepts only instances of Array
+    // can't use filters.filters, as it accepts only instances of Array
     // and IE can't convert NodeList to an array using [].slice
-    // TODO(vojta): use filter if we change it to accept lists as well
+    // TODO(vojta): use filters if we change it to accept lists as well
     function getFirstAnchor(list) {
       var result = null;
       forEach(list, function(element) {
@@ -4267,7 +4267,7 @@ var $AnimateProvider = ['$provide', function($provide) {
    * an animation. Upon bootstrap the classNameFilter value is not set at all and will
    * therefore enable $animate to attempt to perform an animation on any element.
    * When setting the classNameFilter value, animations will only be performed on elements
-   * that successfully match the filter expression. This in turn can boost performance
+   * that successfully match the filters expression. This in turn can boost performance
    * for low-powered devices as well as applications containing a lot of structural operations.
    * @param {RegExp=} expression The className expression which will be checked against all animations
    * @return {RegExp} The current CSS className expression value. If null then there is no expression value
@@ -14690,8 +14690,8 @@ function $WindowProvider(){
  * @description
  *
  * Filters are just functions which transform input to an output. However filters need to be
- * Dependency Injected. To achieve this a filter definition consists of a factory function which is
- * annotated with dependencies and is responsible for creating a filter function.
+ * Dependency Injected. To achieve this a filters definition consists of a factory function which is
+ * annotated with dependencies and is responsible for creating a filters function.
  *
  * ```js
  *   // Filter registration
@@ -14701,10 +14701,10 @@ function $WindowProvider(){
  *       return 'Hello ' + name + '!';
  *     });
  *
- *     // register a filter factory which uses the
+ *     // register a filters factory which uses the
  *     // greet service to demonstrate DI.
  *     $filterProvider.register('greet', function(greet){
- *       // return the filter function which uses the greet service
+ *       // return the filters function which uses the greet service
  *       // to generate salutation
  *       return function(text) {
  *         // filters need to be forgiving so check input validity
@@ -14714,7 +14714,7 @@ function $WindowProvider(){
  *   }
  * ```
  *
- * The filter function is registered with the `$injector` under the filter name suffix with
+ * The filters function is registered with the `$injector` under the filters name suffix with
  * `Filter`.
  *
  * ```js
@@ -14724,8 +14724,8 @@ function $WindowProvider(){
  *         return ...;
  *       });
  *     },
- *     function($filter, reverseFilter) {
- *       expect($filter('reverse')).toBe(reverseFilter);
+ *     function($filters, reverseFilter) {
+ *       expect($filters('reverse')).toBe(reverseFilter);
  *     });
  * ```
  *
@@ -14737,10 +14737,10 @@ function $WindowProvider(){
  * @ngdoc method
  * @name $filterProvider#register
  * @description
- * Register filter factory function.
+ * Register filters factory function.
  *
- * @param {String} name Name of the filter.
- * @param {Function} fn The filter factory function which is injectable.
+ * @param {String} name Name of the filters.
+ * @param {Function} fn The filters factory function which is injectable.
  */
 
 
@@ -14782,10 +14782,10 @@ function $FilterProvider($provide) {
   /**
    * @ngdoc method
    * @name $controllerProvider#register
-   * @param {string|Object} name Name of the filter function, or an object map of filters where
-   *    the keys are the filter names and the values are the filter factories.
-   * @returns {Object} Registered filter instance, or if a map of filters was provided then a map
-   *    of the registered filter instances.
+   * @param {string|Object} name Name of the filters function, or an object map of filters where
+   *    the keys are the filters names and the values are the filters factories.
+   * @returns {Object} Registered filters instance, or if a map of filters was provided then a map
+   *    of the registered filters instances.
    */
   function register(name, factory) {
     if(isObject(name)) {
@@ -15544,7 +15544,7 @@ function jsonFilter() {
 
 
 /**
- * @ngdoc filter
+ * @ngdoc filters
  * @name lowercase
  * @kind function
  * @description
@@ -15555,7 +15555,7 @@ var lowercaseFilter = valueFn(lowercase);
 
 
 /**
- * @ngdoc filter
+ * @ngdoc filters
  * @name uppercase
  * @kind function
  * @description

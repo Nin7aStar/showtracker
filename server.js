@@ -65,6 +65,13 @@ userSchema.pre('save', function (next) {
     });
 });
 
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
+};
+
 // declare mongoose models
 var User = mongoose.model('User', userSchema);
 var Show = mongoose.model('Show', showSchema);
@@ -79,7 +86,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-// authentication
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -306,3 +312,25 @@ agenda.on('start', function(job) {
 agenda.on('complete', function(job) {
     console.log("Job %s finished", job.attrs.name);
 });*/
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
+});
+
+passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+    User.findOne({ email: email }, function(err, user) {
+        if (err) return done(err);
+        if (!user) return done(null, false);
+        user.comparePassword(password, function(err, isMatch) {
+            if (err) return done(err);
+            if (isMatch) return done(null, user);
+            return done(null, false);
+        });
+    });
+}));

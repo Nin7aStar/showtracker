@@ -1,5 +1,5 @@
 angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap'])
-    .config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {    // define only providers
+    .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {    // define only providers
         $locationProvider.html5Mode(true);
 
         // add routes

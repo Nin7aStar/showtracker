@@ -26,7 +26,7 @@ var showSchema = new mongoose.Schema({
     genre:  [String],
     network:    String,
     overview:   String,
-    rating: Number,
+    rating:     Number,
     ratingCount:    Number,
     status: String,
     poster: String,
@@ -129,7 +129,7 @@ app.listen(app.get('port'), function() {
 });
 
 // api routes
-app.get('/api/shows/:id', function (req, res, next) {
+app.get('/api/shows', function (req, res, next) {
     var query = Show.find();
     if (req.query.genre) {
         query.where({ genre: req.query.genre });

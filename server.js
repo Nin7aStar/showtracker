@@ -147,8 +147,8 @@ app.get('/api/shows', function (req, res, next) {
     })
 });
 
-app.get('/api/shows/:_id', function (req, res, next) {
-    Show.findById(res.params.id, function (err, show) {
+app.get('/api/shows/:id', function (req, res, next) {
+    Show.findById(req.params.id, function (err, show) {
         if(err) return next(err);
         res.send(show);
     });
@@ -251,7 +251,7 @@ app.post('/api/shows', function(req, res, next) {
 app.post('/api/subscribe', ensureAuthenticated, function(req, res, next) {
     Show.findById(req.body.showId, function(err, show) {
         if (err) return next(err);
-        show.subscribers.push(req.user.id);
+        show.subscribers.push(req.user._id);
         show.save(function(err) {
             if (err) return next(err);
             res.send(200);
@@ -262,7 +262,7 @@ app.post('/api/subscribe', ensureAuthenticated, function(req, res, next) {
 app.post('/api/unsubscribe', ensureAuthenticated, function(req, res, next) {
     Show.findById(req.body.showId, function(err, show) {
         if (err) return next(err);
-        var index = show.subscribers.indexOf(req.user.id);
+        var index = show.subscribers.indexOf(req.user._id);
         show.subscribers.splice(index, 1);
         show.save(function(err) {
             if (err) return next(err);

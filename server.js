@@ -12,6 +12,7 @@ var _ = require('lodash');
 var session = require('express-session');       // passport js
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var compress = require('compression');
 
 // show schema
 var showSchema = new mongoose.Schema({
@@ -79,6 +80,7 @@ mongoose.connect('mongodb://localhost/showtracker');
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
+app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -86,7 +88,13 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));
+app.use(function (req, res, next) {
+    if (req.user) {
+        res.cookie('user', JSON.stringify(req.user));
+    }
+    next();
+});
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) next();

@@ -7,6 +7,7 @@
     "async": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.16.0",
+    "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "ejs": "~2.5.5",
@@ -28,7 +29,12 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.0",
     "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.1.2",
+    "gulp-uncss": "^1.0.6"
   }
 }

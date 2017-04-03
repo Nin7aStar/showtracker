@@ -12,34 +12,34 @@ var _ = require('lodash');
 var session = require('express-session');       // passport js
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-// var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
-// var sugar = require('sugar');
-// var nodemailer = require('nodemailer');
+var agenda = require('agenda')({ db: { address: 'localhost:27017/showtracker' } });
+var sugar = require('sugar');
+var nodemailer = require('nodemailer');
 
 // show schema
 var showSchema = new mongoose.Schema({
-    _id:    Number,
-    name:   String,
-    airsDayOfWeek: String,
-    airsTime:   String,
-    firstAired: Date,
-    genre:  [String],
-    network:    String,
-    overview:   String,
-    rating:     Number,
+    _id:            Number,
+    name:           String,
+    airsDayOfWeek:  String,
+    airsTime:       String,
+    firstAired:     Date,
+    genre:          [String],
+    network:        String,
+    overview:       String,
+    rating:         Number,
     ratingCount:    Number,
-    status: String,
-    poster: String,
+    status:         String,
+    poster:         String,
     subscribers:    [{
-        type:   mongoose.Schema.Types.ObjectId,
-        ref:    'User'
+        type:       mongoose.Schema.Types.ObjectId,
+        ref:        'User'
     }],
     episodes: [{
-        season:  Number,
+        season:         Number,
         episodeNumber:  Number,
         episodeName:    String,
-        firstAired: Date,
-        overview:   String
+        firstAired:     Date,
+        overview:       String
     }]
 });
 
@@ -240,8 +240,8 @@ app.post('/api/shows', function(req, res, next) {
             }
 
             // @707
-            var alertDate = Date.create('Next ' + show.airsDayOfWeek + ' at ' + show.airsTime).rewind({ hour: 2});
-            agenda.schedule(alertDate, 'send email alert', show.name).repeatEvery('1 week');
+            // var alertDate = Date.create('Next ' + show.airsDayOfWeek + ' at ' + show.airsTime).rewind({ hour: 2});
+            // agenda.schedule(alertDate, 'send email alert', show.name).repeatEvery('1 week');
 
             res.send(200);
         });
@@ -271,7 +271,6 @@ app.post('/api/unsubscribe', ensureAuthenticated, function(req, res, next) {
     });
 });
 
-/*
 agenda.define('send email alert', function(job, done) {
     Show.findOne({ name: job.attrs.data }).populate('subscribers').exec(function(err, show) {
         var emails = show.subscribers.map(function(user) {
@@ -311,7 +310,7 @@ agenda.on('start', function(job) {
 
 agenda.on('complete', function(job) {
     console.log("Job %s finished", job.attrs.name);
-});*/
+});
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);

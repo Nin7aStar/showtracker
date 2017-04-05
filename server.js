@@ -75,9 +75,9 @@ var User = mongoose.model('User', userSchema);
 var Show = mongoose.model('Show', showSchema);
 
 // connect to mongoDB
-// mongoose.connect('mongodb://localhost/showtracker');
+mongoose.connect('mongodb://localhost/showtracker');
 // connect to mLab deployment
-mongoose.connect('mongodb://admin:admin123@ds149700.mlab.com:49700/showtracker');
+// mongoose.connect('mongodb://admin:admin123@ds149700.mlab.com:49700/showtracker');
 
 var app = express();
 

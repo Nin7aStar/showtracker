@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "agenda": "^0.9.1",
+    "agenda": "https://registry.npmjs.org/agenda/-/agenda-0.9.1.tgz",
     "async": "^2.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.16.0",
@@ -22,12 +22,12 @@
     "mongoose": "^4.9.2",
     "mongoskin": "^2.1.0",
     "morgan": "~1.7.0",
-    "nodemailer": "^3.1.8",
+    "nodemailer": "https://registry.npmjs.org/nodemailer/-/nodemailer-3.1.8.tgz",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "request": "^2.81.0",
     "serve-favicon": "~2.3.2",
-    "sugar": "^2.0.4",
+    "sugar": "https://registry.npmjs.org/sugar/-/sugar-2.0.4.tgz",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {

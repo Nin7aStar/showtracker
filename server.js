@@ -14,9 +14,9 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var compress = require('compression');
 
-var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
-var sugar = require('sugar');
-var nodemailer = require('nodemailer');
+// var agenda = require('agenda')({ db: { address: 'localhost:27017/test' } });
+// var sugar = require('sugar');
+// var nodemailer = require('nodemailer');
 
 // show schema
 var showSchema = new mongoose.Schema({
@@ -244,14 +244,14 @@ app.post('/api/shows', function(req, res, next) {
         if (err) return next(err);
         show.save(function(err) {
             if (err) {
-                // if (err.code == 11000) {
-                //     return res.send(409, { message: show.name + ' already exists.' });
-                // }
+                if (err.code == 11000) {
+                    return res.send(409, { message: show.name + ' already exists.' });
+                }
                 return next(err);
             }
 
-            var alertDate = Date.create('Next ' + show.airsDayOfWeek + ' at ' + show.airsTime).rewind({ hour: 2});
-            agenda.schedule(alertDate, 'send email alert', show.name).repeatEvery('1 week');
+            // var alertDate = Date.create('Next ' + show.airsDayOfWeek + ' at ' + show.airsTime).rewind({ hour: 2});
+            // agenda.schedule(alertDate, 'send email alert', show.name).repeatEvery('1 week');
 
             res.send(200);
         });
@@ -281,6 +281,7 @@ app.post('/api/unsubscribe', ensureAuthenticated, function(req, res, next) {
     });
 });
 
+/*
 agenda.define('send email alert', function(job, done) {
     Show.findOne({ name: job.attrs.data }).populate('subscribers').exec(function(err, show) {
         var emails = show.subscribers.map(function(user) {
@@ -321,6 +322,7 @@ agenda.on('start', function(job) {
 agenda.on('complete', function(job) {
     console.log("Job %s finished", job.attrs.name);
 });
+*/
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);

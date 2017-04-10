@@ -24,6 +24,10 @@ angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mg
                 templateUrl: 'views/add.html',
                 controller: 'AddCtrl'
             })
+            .when('/profile', {
+                templateUrl: 'views/profile.html',
+                controller: 'ProfileCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

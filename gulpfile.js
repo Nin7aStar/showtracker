@@ -19,6 +19,7 @@ gulp.task('sass', function () {
                 'public/views/home.html',
                 'public/views/login.html',
                 'public/views/signup.html',
+                'public/views/profile.html'
             ]
         }))
         .pipe(csso())   // to minify CSS
